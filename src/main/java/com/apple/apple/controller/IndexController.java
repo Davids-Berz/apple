@@ -1,5 +1,8 @@
 package com.apple.apple.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -29,4 +32,17 @@ public class IndexController {
                 .addAttribute("titulo", "Usuario: " + usuario.getNombre());
         return "perfil";
     }
+
+    @GetMapping("/listar")
+    public String listar(ModelMap map) {
+
+        List<Usuario> uList = new ArrayList<>();
+        uList.add(new Usuario("David", "saldivar", "Davids.Berz@gmail.com"));
+        uList.add(new Usuario("Jose", "Perez", "JPerez@gmail.com"));
+        map.addAttribute("titulo", "Listado de Usuarios");
+        map.addAttribute("usuarios",uList);
+
+        return "listar";
+    }
+
 }
