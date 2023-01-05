@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.apple.apple.models.Usuario;
@@ -40,9 +41,18 @@ public class IndexController {
         uList.add(new Usuario("David", "saldivar", "Davids.Berz@gmail.com"));
         uList.add(new Usuario("Jose", "Perez", "JPerez@gmail.com"));
         map.addAttribute("titulo", "Listado de Usuarios");
-        map.addAttribute("usuarios",uList);
+        // map.addAttribute("usuarios",uList);
 
         return "listar";
+    }
+
+    // Metodo con anotiacion ModelAttribute para el controlador Index
+    @ModelAttribute("usuarios")
+    public List<Usuario> lstUsuario() {
+        List<Usuario> uList = new ArrayList<>();
+        uList.add(new Usuario("David", "saldivar", "Davids.Berz@gmail.com"));
+        uList.add(new Usuario("Jose", "Perez", "JPerez@gmail.com"));
+        return uList;
     }
 
 }
