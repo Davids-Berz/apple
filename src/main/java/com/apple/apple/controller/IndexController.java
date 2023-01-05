@@ -3,6 +3,7 @@ package com.apple.apple.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,11 +16,14 @@ import com.apple.apple.models.Usuario;
 @Controller
 @RequestMapping("/app")
 public class IndexController {
+
+    @Value("${titulo.index}")
+    private String indexTitulo;
     
 
     @GetMapping({"/",""})
     public String index(Model model) {
-        model.addAttribute("titulo", "Creando un Controlador");
+        model.addAttribute("titulo", indexTitulo);
         return "index";
     }
 
