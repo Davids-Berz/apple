@@ -1,6 +1,8 @@
 package com.apple.apple.models.entity;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 public class Usuario {
     
@@ -11,10 +13,12 @@ public class Usuario {
     @NotEmpty
     private String apellido;
     @NotEmpty
+    @Size(min = 4, max = 15)
     private String username;
     @NotEmpty
     private String password;
     @NotEmpty
+    @Email
     private String email;
 
     public String getId() {
