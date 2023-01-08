@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
     <head>
-        <title></title>
+        <title th:text="${titulo}"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-    <form th:action="@{/form}" method="post">
-        <!-- usuario -->
-        <div>
-            <label for="username">Username</label>
+        <h3  th:text="${titulo}"></h3>
+        <form
+            th:action="@{/form}" method="post">
+            <!-- usuario -->
             <div>
-                <input type="text" name="username" id="username">
+                <label for="username">Username</label>
+                <div>
+                    <input type="text" name="username" id="username">
+                </div>
             </div>
-        </div>
-        <!-- password -->
-        <div>
-            <label for="password">password</label>
+            <!-- password -->
             <div>
-                <input type="password" name="password" id="password">
+                <label for="password">password</label>
+                <div>
+                    <input type="password" name="password" id="password">
+                </div>
             </div>
-        </div>
-        <!-- email -->
-        <div>
-            <label for="email">email</label>
+            <!-- email -->
             <div>
-                <input type="text" name="email" id="email">
+                <label for="email">email</label>
+                <div>
+                    <input type="text" name="email" id="email">
+                </div>
             </div>
-        </div>
-        <!-- button -->
-        <br>
-        <div>
+            <!-- button -->
+            <br>
             <div>
-                <input type="submit" name="" value="enviar">
+                <div>
+                    <input type="submit" name="" value="enviar">
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </body>
 </html>
