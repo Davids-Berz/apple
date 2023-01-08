@@ -6,23 +6,31 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
 import com.apple.apple.models.entity.Usuario;
 import jakarta.validation.Valid;
 
 @Controller
+@SessionAttributes("usuario")
 public class FormController {
 
     @GetMapping("/form")
     public String form(Model model) {
+
+        Usuario usuario = new Usuario();
+        usuario.setId("123-33");
         model.addAttribute("titulo", "Formulario");
-        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("usuario", usuario);
         return "form";
     }
 
     @PostMapping("/form")
     public String processForm(Model model,
             @Valid Usuario usuario, 
-            BindingResult result) {
+            BindingResult result,
+            SessionStatus status) {
         model.addAttribute("titulo", "Resultado Form");
         // se pueblan los datos teniendo los mismos campos
         // BindingResult siempre despues del @Valid
@@ -32,7 +40,8 @@ public class FormController {
         }
 
         model.addAttribute("usuario", usuario);
-
+        //se elimina el usuario de la sesion
+        status.setComplete();
         return "resultado";
     }
 

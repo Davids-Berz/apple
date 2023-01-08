@@ -4,18 +4,26 @@ import jakarta.validation.constraints.NotEmpty;
 
 public class Usuario {
     
+    private String id;
+
     @NotEmpty
     private String nombre;
-
     @NotEmpty
     private String apellido;
-
     @NotEmpty
     private String username;
     @NotEmpty
     private String password;
     @NotEmpty
     private String email;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
