@@ -20,20 +20,9 @@ public class FormController {
     }
 
     @PostMapping("/form")
-    public String processForm(Model model, HttpServletRequest request) {
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-
-        Usuario usuario = new Usuario();
-
-        usuario.setUsername(username);
-        usuario.setPassword(password);
-        usuario.setEmail(email);
-
+    public String processForm(Model model, Usuario usuario) {
+        // se pueblan los datos teniendo los mismos campos
         model.addAttribute("usuario", usuario)
-
                 .addAttribute("titulo", "Resultado Form");
         return "resultado";
     }
