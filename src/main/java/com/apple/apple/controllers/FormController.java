@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.apple.apple.models.entity.Usuario;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -24,9 +26,14 @@ public class FormController {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
 
-        model.addAttribute("username", username)
-                .addAttribute("password", password)
-                .addAttribute("email", email)
+        Usuario usuario = new Usuario();
+
+        usuario.setUsername(username);
+        usuario.setPassword(password);
+        usuario.setEmail(email);
+
+        model.addAttribute("usuario", usuario)
+
                 .addAttribute("titulo", "Resultado Form");
         return "resultado";
     }
