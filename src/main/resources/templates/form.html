@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    <form th:action="@{/form}" method="post">
+        <!-- usuario -->
+        <div>
+            <label for="username">Username</label>
+            <div>
+                <input type="text" name="username" id="username">
+            </div>
+        </div>
+        <!-- password -->
+        <div>
+            <label for="password">password</label>
+            <div>
+                <input type="password" name="password" id="password">
+            </div>
+        </div>
+        <!-- email -->
+        <div>
+            <label for="email">email</label>
+            <div>
+                <input type="text" name="email" id="email">
+            </div>
+        </div>
+        <!-- button -->
+        <br>
+        <div>
+            <div>
+                <input type="submit" name="" value="enviar">
+            </div>
+        </div>
+    </form>
+    </body>
+</html>

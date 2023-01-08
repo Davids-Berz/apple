@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class FormController {
     
-    @GetMapping("form")
+    @GetMapping("/form")
     public String form(Model model) {
         return "form";
     }
 
-    @PostMapping(value="form")
+    @PostMapping("/form")
     public String processForm(Model model) {
         //TODO: process POST request
         
         return "resultado";
     }
-    
+
 }
