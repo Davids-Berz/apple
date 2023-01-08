@@ -10,6 +10,24 @@
         <h3 th:text="${titulo}"></h3>
         <form
             th:action="@{/form}" th:object="${usuario}" method="post">
+            <!-- nombre -->
+            <div>
+                <label for="nombre">
+                    nombre</label>
+                <div>
+                    <input type="text" id="nombre" th:field="*{nombre}">
+                </div>
+                <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+            <!-- apellido -->
+            <div>
+                <label for="apellido">
+                    apellido</label>
+                <div>
+                    <input type="text" id="apellido" th:field="*{apellido}">
+                </div>
+                <div th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+            </div>
             <!-- usuario -->
             <div>
                 <label for="username">
