@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+    <head>
+        <title>Error</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <h3 th:text="'Lo Sentimos! pagina no encontrada ' + ${status}"></h3>
+        <div th:text="${error}"></div>
+        <div th:text="${message}"></div>
+        <div th:text="${path}"></div>
+    </body>
+</html>
