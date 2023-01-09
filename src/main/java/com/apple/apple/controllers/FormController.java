@@ -20,9 +20,12 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.apple.apple.editors.NombreMayusEditor;
 import com.apple.apple.editors.PaisPropertyEditor;
+import com.apple.apple.editors.RolesEditor;
 import com.apple.apple.models.entity.Pais;
+import com.apple.apple.models.entity.Role;
 import com.apple.apple.models.entity.Usuario;
 import com.apple.apple.services.PaisService;
+import com.apple.apple.services.RoleService;
 import com.apple.apple.validations.UsuarioValidator;
 
 import jakarta.validation.Valid;
@@ -38,7 +41,16 @@ public class FormController {
     private PaisService paisService;
 
     @Autowired
+    private RoleService roleService;
+
+    // Roles
+
+    @Autowired
     private PaisPropertyEditor paisPropertyEditor;
+
+    @Autowired
+    private RolesEditor rolesEditor;
+
 
     // Se usa para desacoplar la validacion dentro de los Endpoint
     @InitBinder
@@ -56,12 +68,19 @@ public class FormController {
         // registrar editor
         webDataBinder.registerCustomEditor(Pais.class, "pais", paisPropertyEditor);
 
+        webDataBinder.registerCustomEditor(Role.class, "roles", rolesEditor);
+
     }
 
     @ModelAttribute("listaPaises")
     public List<Pais> listaPaises() {
         return paisService.paises();
 
+    }
+
+    @ModelAttribute("roleService")
+    public List<Role> roleService() {
+        return roleService.roles();
     }
 
     @ModelAttribute("strRoles")
