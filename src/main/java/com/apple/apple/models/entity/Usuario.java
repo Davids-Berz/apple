@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 public class Usuario {
@@ -34,7 +35,8 @@ public class Usuario {
     private Integer edad;
 
     // @NotNull
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
     public String getId() {
