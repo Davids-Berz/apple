@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.apple.apple.editors.NombreMayusEditor;
 import com.apple.apple.models.entity.Usuario;
 import com.apple.apple.validations.UsuarioValidator;
 
@@ -34,6 +35,10 @@ public class FormController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         formatter.setLenient(false);
         webDataBinder.registerCustomEditor(java.util.Date.class, "fechaNacimiento",new CustomDateEditor(formatter, false));
+
+        // registrando nuevo customEditor
+        webDataBinder.registerCustomEditor(String.class, "username", new NombreMayusEditor());
+
     }
 
     @GetMapping("/form")
