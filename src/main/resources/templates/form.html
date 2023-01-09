@@ -10,14 +10,34 @@
         <h3 th:text="${titulo}"></h3>
         <form
             th:action="@{/form}" th:object="${usuario}" method="post">
+            <!-- Habilitar -->
+            <div>
+                <label for="habilitar">Habilitar</label>
+                <div>
+                    <input type="checkbox" id="habilitar" th:field="*{habilitar}">
+                </div>
+            </div>
+            <!-- Genero -->
+            <div>
+                <label >Genero</label>
+                <div>
+                    <input type="radio" id="genero1" th:field="*{genero}" value="Hombre">
+                    <label for="">Hombre</label>
+                </div>
+                <div>
+                    <input type="radio" id="genero2" th:field="*{genero}" value="Mujer">
+                    <label for="">Mujer</label>
+                </div>
+                <div th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
+            </div>
             <!-- Pais -->
             <div>
                 <label for="pais">Pais</label>
                 <div>
                     <Select id="pais" th:field="*{pais}">
                         <option value="">Seleccionar</option>
-                        <option th:each="pais : ${listaPaises}" th:text="${pais.nombre}" th:value="${pais.id}">
-                    </Select>
+                        <option th:each="pais : ${listaPaises}" th:text="${pais.nombre}" th:value="${pais.id}"></option>
+                    </select>
                 </div>
                 <div th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></div>
             </div>
@@ -27,9 +47,7 @@
                 <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
                 <label th:for="${#ids.prev('roles')}" th:text="${role.nombre}"></label>
             </div>
-            <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">
-
-            </div>
+            <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></div>
             <!-- nombre -->
             <div>
                 <label for="nombre">
@@ -83,7 +101,8 @@
             <div th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
             <!-- fecha -->
             <div>
-                <label for="edad">Fecha de fecha de nacimiento </label>
+                <label for="edad">Fecha de fecha de nacimiento
+                </label>
                 <div>
                     <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" placeholder="yyy/MM/dd">
                 </div>
