@@ -12,15 +12,15 @@
             th:action="@{/form}" th:object="${usuario}" method="post">
             <!-- Pais -->
             <div>
-                <label for="pais">
+                <label for="pais.codigo">
                     nombre</label>
                 <div>
-                    <Select id="pais" th:field="*{pais}">
+                    <Select id="pais" th:field="*{pais.codigo}">
                         <option value="">Seleccionar</option>
-                        <option th:each="pais : ${paisesMap.entrySet()}" th:text="${pais.value}" th:value="${pais.key}">
+                        <option th:each="pais : ${listaPaises}" th:text="${pais.nombre}" th:value="${pais.codigo}">
                     </Select>
                 </div>
-                <div th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></div>
+                <div th:if="${#fields.hasErrors('pais.codigo')}" th:errors="*{pais.codigo}"></div>
             </div>
             <!-- nombre -->
             <div>

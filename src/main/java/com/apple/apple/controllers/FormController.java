@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.apple.apple.editors.NombreMayusEditor;
+import com.apple.apple.models.entity.Pais;
 import com.apple.apple.models.entity.Usuario;
 import com.apple.apple.validations.UsuarioValidator;
 
@@ -39,16 +39,36 @@ public class FormController {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         formatter.setLenient(false);
-        webDataBinder.registerCustomEditor(java.util.Date.class, "fechaNacimiento",new CustomDateEditor(formatter, false));
+        webDataBinder.registerCustomEditor(java.util.Date.class, "fechaNacimiento",
+                new CustomDateEditor(formatter, false));
 
         // registrando nuevo customEditor
         webDataBinder.registerCustomEditor(String.class, "username", new NombreMayusEditor());
 
     }
 
+    @ModelAttribute("listaPaises")
+    public List<Pais> listaPaises() {
+        return List.of(
+            new Pais(1, "AR","Argentina"), 
+            new Pais(2, "BO","Bolivia"),
+            new Pais(3, "CL","Chile"),
+            new Pais(4, "CO","Colombia"),
+            new Pais(5, "EC","Ecuador"),
+            new Pais(6, "GT","Guatemala"),
+            new Pais(7, "HN","Honduras"),
+            new Pais(8, "MX","Mexico"),
+            new Pais(9, "NI","Nicaragua"),
+            new Pais(10, "PA","Panamá"),
+            new Pais(11, "PE","Perú"),
+            new Pais(12, "PR","Puerto Rico"));
+        
+    }
+
     @ModelAttribute("paises")
     public List<String> paises() {
-        return List.of("Argentina", "Australia", "Brasil", "Chile", "Colombia", "Costa Rica", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Honduras", "Mexico");
+        return List.of("Argentina", "Australia", "Brasil", "Chile", "Colombia", "Costa Rica", "Dominican Republic",
+                "Ecuador", "El Salvador", "Guatemala", "Honduras", "Mexico");
     }
 
     @ModelAttribute("paisesMap")
@@ -56,15 +76,15 @@ public class FormController {
         Map<String, String> paises = new HashMap<String, String>();
         paises.put("AR", "Argentina");
         paises.put("AU", "Australia");
-        paises.put("MX","Mexico");
-        paises.put("CL","Chile");
-        paises.put("CO","Colombia");
-        paises.put("CR","Costa Rica");
-        paises.put("DO","Dominican Republic");
-        paises.put("EC","Ecuador");
-        paises.put("SV","El Salvador");
-        paises.put("GT","Guatemala");
-        paises.put("HN","Honduras");
+        paises.put("MX", "Mexico");
+        paises.put("CL", "Chile");
+        paises.put("CO", "Colombia");
+        paises.put("CR", "Costa Rica");
+        paises.put("DO", "Dominican Republic");
+        paises.put("EC", "Ecuador");
+        paises.put("SV", "El Salvador");
+        paises.put("GT", "Guatemala");
+        paises.put("HN", "Honduras");
         return paises;
     }
 
@@ -83,7 +103,7 @@ public class FormController {
             @Valid Usuario usuario,
             BindingResult result,
             SessionStatus status) {
-        //usuarioValid.validate("usuario", result);
+        // usuarioValid.validate("usuario", result);
         model.addAttribute("titulo", "Resultado Form");
         // se pueblan los datos teniendo los mismos campos
         // BindingResult siempre despues del @Valid
