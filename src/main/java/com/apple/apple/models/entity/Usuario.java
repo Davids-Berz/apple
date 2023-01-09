@@ -8,16 +8,16 @@ public class Usuario {
     
     private String id;
 
-    @NotEmpty
+    //@NotEmpty
     private String nombre;
-    @NotEmpty
+    //@NotEmpty
     private String apellido;
     @NotEmpty
     @Size(min = 4, max = 15)
     private String username;
     @NotEmpty
     private String password;
-    @NotEmpty
+    //@NotEmpty
     @Email
     private String email;
 
