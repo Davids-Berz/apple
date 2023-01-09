@@ -2,6 +2,9 @@ package com.apple.apple.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -48,6 +51,22 @@ public class FormController {
         return List.of("Argentina", "Australia", "Brasil", "Chile", "Colombia", "Costa Rica", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Honduras", "Mexico");
     }
 
+    @ModelAttribute("paisesMap")
+    public Map<String, String> paisesMap() {
+        Map<String, String> paises = new HashMap<String, String>();
+        paises.put("AR", "Argentina");
+        paises.put("AU", "Australia");
+        paises.put("MX","Mexico");
+        paises.put("CL","Chile");
+        paises.put("CO","Colombia");
+        paises.put("CR","Costa Rica");
+        paises.put("DO","Dominican Republic");
+        paises.put("EC","Ecuador");
+        paises.put("SV","El Salvador");
+        paises.put("GT","Guatemala");
+        paises.put("HN","Honduras");
+        return paises;
+    }
 
     @GetMapping("/form")
     public String form(Model model) {
