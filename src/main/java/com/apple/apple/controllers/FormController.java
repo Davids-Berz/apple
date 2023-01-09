@@ -19,18 +19,26 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.apple.apple.editors.NombreMayusEditor;
+import com.apple.apple.editors.PaisPropertyEditor;
 import com.apple.apple.models.entity.Pais;
 import com.apple.apple.models.entity.Usuario;
+import com.apple.apple.services.PaisService;
 import com.apple.apple.validations.UsuarioValidator;
 
 import jakarta.validation.Valid;
 
 @Controller
-@SessionAttributes("usuario")
+@SessionAttributes({"usuario"})
 public class FormController {
 
     @Autowired
     private UsuarioValidator usuarioValid;
+
+    @Autowired
+    private PaisService paisService;
+
+    @Autowired
+    private PaisPropertyEditor paisPropertyEditor;
 
     // Se usa para desacoplar la validacion dentro de los Endpoint
     @InitBinder
@@ -45,24 +53,15 @@ public class FormController {
         // registrando nuevo customEditor
         webDataBinder.registerCustomEditor(String.class, "username", new NombreMayusEditor());
 
+        // registrar editor
+        webDataBinder.registerCustomEditor(Pais.class, "pais", paisPropertyEditor);
+
     }
 
     @ModelAttribute("listaPaises")
     public List<Pais> listaPaises() {
-        return List.of(
-            new Pais(1, "AR","Argentina"), 
-            new Pais(2, "BO","Bolivia"),
-            new Pais(3, "CL","Chile"),
-            new Pais(4, "CO","Colombia"),
-            new Pais(5, "EC","Ecuador"),
-            new Pais(6, "GT","Guatemala"),
-            new Pais(7, "HN","Honduras"),
-            new Pais(8, "MX","Mexico"),
-            new Pais(9, "NI","Nicaragua"),
-            new Pais(10, "PA","Panamá"),
-            new Pais(11, "PE","Perú"),
-            new Pais(12, "PR","Puerto Rico"));
-        
+        return paisService.paises();
+
     }
 
     @ModelAttribute("paises")
