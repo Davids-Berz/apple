@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -31,7 +32,7 @@ import com.apple.apple.validations.UsuarioValidator;
 import jakarta.validation.Valid;
 
 @Controller
-@SessionAttributes({"usuario"})
+@SessionAttributes({ "usuario" })
 public class FormController {
 
     @Autowired
@@ -50,7 +51,6 @@ public class FormController {
 
     @Autowired
     private RolesEditor rolesEditor;
-
 
     // Se usa para desacoplar la validacion dentro de los Endpoint
     @InitBinder
@@ -89,7 +89,7 @@ public class FormController {
     }
 
     @ModelAttribute("mapRoles")
-    public Map<String,String> mapRoles() {
+    public Map<String, String> mapRoles() {
         Map<String, String> map = new HashMap<>();
         map.put("ROLE_ADMIN", "Administrador");
         map.put("ROLE_USUARIO", "Usuario");
@@ -126,7 +126,8 @@ public class FormController {
         Usuario usuario = new Usuario();
         usuario.setId("123-33");
         usuario.setHabilitar(true);
-        usuario.setPais(new Pais(8, "MX","Mexico"));
+        usuario.setPais(new Pais(8, "MX", "Mexico"));
+        usuario.setRoles(List.of(new Role(2, "Usuario", "ROLE_USUARIO")));
         model.addAttribute("titulo", "Formulario");
         model.addAttribute("usuario", usuario);
         return "form";
@@ -135,8 +136,7 @@ public class FormController {
     @PostMapping("/form")
     public String processForm(Model model,
             @Valid Usuario usuario,
-            BindingResult result,
-            SessionStatus status) {
+            BindingResult result) {
         // usuarioValid.validate("usuario", result);
         model.addAttribute("titulo", "Resultado Form");
         // se pueblan los datos teniendo los mismos campos
@@ -148,6 +148,18 @@ public class FormController {
 
         model.addAttribute("usuario", usuario);
         // se elimina el usuario de la sesion
+        return "redirect:/ver";
+    }
+
+    /*
+     * redireccion
+     */
+
+    @GetMapping("ver")
+    public String ver(@SessionAttribute("usuario") Usuario usuario,
+            Model model,
+            SessionStatus status) {
+        model.addAttribute("titulo", "Resultado Form");
         status.setComplete();
         return "resultado";
     }
