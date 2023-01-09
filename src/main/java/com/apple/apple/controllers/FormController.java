@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -21,6 +23,12 @@ public class FormController {
     @Autowired
     private UsuarioValidator usuarioValid;
 
+    // Se usa para desacoplar la validacion dentro de los Endpoint
+    @InitBinder
+    public void initBinding(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(usuarioValid);
+    }
+
     @GetMapping("/form")
     public String form(Model model) {
 
@@ -36,7 +44,7 @@ public class FormController {
             @Valid Usuario usuario,
             BindingResult result,
             SessionStatus status) {
-        usuarioValid.validate("usuario", result);
+        //usuarioValid.validate("usuario", result);
         model.addAttribute("titulo", "Resultado Form");
         // se pueblan los datos teniendo los mismos campos
         // BindingResult siempre despues del @Valid
