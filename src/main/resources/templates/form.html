@@ -22,6 +22,15 @@
                 </div>
                 <div th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></div>
             </div>
+            <!-- Roles -->
+            <label>Roles</label>
+            <div th:each="role : ${strRoles}">
+                <input type="checkbox" th:field="*{roles}" th:value="${role}">
+                <label th:for="${#ids.prev('roles')}" th:text="${role}"></label>
+            </div>
+            <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">
+
+            </div>
             <!-- nombre -->
             <div>
                 <label for="nombre">

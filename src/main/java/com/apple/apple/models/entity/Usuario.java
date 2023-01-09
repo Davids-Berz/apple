@@ -1,10 +1,8 @@
 package com.apple.apple.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -42,6 +40,9 @@ public class Usuario {
 
     // @NotNull
     private Pais pais;
+
+    @NotEmpty
+    private List<String> roles;
 
     public String getId() {
         return id;
@@ -113,6 +114,14 @@ public class Usuario {
 
     public void setPais(Pais pais) {
         this.pais = pais;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
 }

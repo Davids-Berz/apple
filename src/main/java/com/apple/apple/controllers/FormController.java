@@ -64,6 +64,11 @@ public class FormController {
 
     }
 
+    @ModelAttribute("strRoles")
+    public List<String> roles() {
+        return List.of("ROLE_ADMIN", "ROLE_USUARIO", "ROLE_MODERATOR");
+    }
+
     @ModelAttribute("paises")
     public List<String> paises() {
         return List.of("Argentina", "Australia", "Brasil", "Chile", "Colombia", "Costa Rica", "Dominican Republic",
