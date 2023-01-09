@@ -15,4 +15,12 @@ public class ErrorHandlerController {
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "error/aritmetica";
     } 
+
+    @ExceptionHandler({NumberFormatException.class})
+    public String numberError(Exception e, Model model) {
+        model.addAttribute("error","Error! numero invalido");
+        model.addAttribute("message",e.getMessage());
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return "error/aritmetica";
+    } 
 }

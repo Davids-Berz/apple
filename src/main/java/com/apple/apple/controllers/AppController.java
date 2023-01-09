@@ -12,4 +12,10 @@ public class AppController {
         Integer i = 100/0;
         return "index";
     }
+
+    @GetMapping("/numero")
+    public String numero(Model model) {
+        Integer i = Integer.parseInt("10k");
+        return "index";
+    }
 }
