@@ -23,8 +23,10 @@ public class UsuarioValidator implements Validator{
         ValidationUtils.rejectIfEmpty(errors, "apellido", "NotEmpty.usuario.apellido");
 
         ValidationUtils.rejectIfEmpty(errors, "email", "NotEmpty.usuario.email");
+        
+        ValidationUtils.rejectIfEmpty(errors, "password", "NotEmpty.usuario.password");
 
-
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaNacimiento", "typeMismatch.java.util.Date");
     }
     
 

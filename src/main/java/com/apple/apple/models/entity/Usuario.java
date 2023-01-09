@@ -1,25 +1,41 @@
 package com.apple.apple.models.entity;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Usuario {
-    
+
     private String id;
 
-    //@NotEmpty
+    // @NotEmpty
     private String nombre;
-    //@NotEmpty
+    // @NotEmpty
     private String apellido;
     @NotEmpty
     @Size(min = 4, max = 15)
     private String username;
-    @NotEmpty
+    // @NotEmpty
     private String password;
-    //@NotEmpty
+    // @NotEmpty
     @Email
     private String email;
+
+    @NotNull
+    @Min(0)
+    @Max(100)
+    private Integer edad;
+
+    // @NotNull
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private Date fechaNacimiento;
 
     public String getId() {
         return id;
@@ -67,6 +83,22 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
 }
