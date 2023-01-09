@@ -33,7 +33,7 @@ public class FormController {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         formatter.setLenient(false);
-        webDataBinder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(formatter, false));
+        webDataBinder.registerCustomEditor(java.util.Date.class, "fechaNacimiento",new CustomDateEditor(formatter, false));
     }
 
     @GetMapping("/form")
