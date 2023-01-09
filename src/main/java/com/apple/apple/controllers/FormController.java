@@ -126,6 +126,7 @@ public class FormController {
         Usuario usuario = new Usuario();
         usuario.setId("123-33");
         usuario.setHabilitar(true);
+        usuario.setPais(new Pais(8, "MX","Mexico"));
         model.addAttribute("titulo", "Formulario");
         model.addAttribute("usuario", usuario);
         return "form";
