@@ -36,7 +36,7 @@ public class Usuario {
 
     // @NotNull
     @Past
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
     public String getId() {

@@ -26,7 +26,7 @@ public class UsuarioValidator implements Validator{
         
         ValidationUtils.rejectIfEmpty(errors, "password", "NotEmpty.usuario.password");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaNacimiento", "typeMismatch.java.util.Date");
+        // ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fechaNacimiento", "typeMismatch.java.util.Date");
     }
     
 
