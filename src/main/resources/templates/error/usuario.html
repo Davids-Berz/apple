@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
     <head>
-        <title>Error 500</title>
+        <title>Usuario Error</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <h3>HA OCURRIDO UN ERROR!</h3>
+        <h3>Usuario no encontrado</h3>
         <div th:text="${error} + '  '+${status}"></div>
         <div th:text="${message}"></div>
         <div th:text="${timestamp}"></div>

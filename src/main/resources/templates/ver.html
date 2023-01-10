@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
     <head>
-        <title>Error 500</title>
+        <title th:text="${titulo}"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <h3>HA OCURRIDO UN ERROR!</h3>
-        <div th:text="${error} + '  '+${status}"></div>
-        <div th:text="${message}"></div>
-        <div th:text="${timestamp}"></div>
+        <h3 th:text="${titulo}"></h3>
+        <p th:text="${usuario.id}"></p>
+        <p th:text="${usuario.nombre}"></p>
+        <p th:text="${usuario.apellido}"></p>
     </body>
 </html>
