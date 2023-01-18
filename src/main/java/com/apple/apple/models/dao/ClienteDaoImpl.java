@@ -16,6 +16,7 @@ public class ClienteDaoImpl implements IClienteDao {
     @PersistenceContext
     private EntityManager em;
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly=true)
     @Override
     public List<Cliente> findAll() {
