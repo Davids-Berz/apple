@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -29,6 +30,11 @@ public class Cliente implements Serializable {
     private Date createAt; 
     
      private static final Long serialVersionUID = 1L;
+
+     @PrePersist
+     public void prePersist() {
+        createAt = new Date();
+     }
 
     public Long getId() {
         return id;
