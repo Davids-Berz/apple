@@ -1,16 +1,17 @@
 package com.apple.apple.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apple.apple.models.dao.IClienteDao;
 import com.apple.apple.models.entity.Cliente;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -37,7 +38,13 @@ public class ClienteController {
     }
 
     @RequestMapping(value="/form", method=RequestMethod.POST)
-    public String guardar( Cliente cliente) {
+    public String guardar(Model model, @Valid Cliente cliente, BindingResult result) {
+        //BindingResult siempre despues de @Valid y despues de mas parametros
+        if (result.hasErrors()) {
+            model.addAttribute("titulo", "Formulario Cliente");
+            model.addAttribute("errors", result.getAllErrors());
+            return "form";
+        }
         clienteDao.save(cliente);
         return "redirect:listar";
     }
