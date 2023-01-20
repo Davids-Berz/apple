@@ -23,7 +23,7 @@ public class ClienteController {
     private IClienteDao clienteDao;
 
     @RequestMapping(value = "/listar", method = RequestMethod.GET)
-    private String listsar(Model model) {
+    private String listar(Model model) {
         model.addAttribute("titulo", "Listado de cliente");
         model.addAttribute("clientes", clienteDao.findAll());
         return "listar";
@@ -61,6 +61,15 @@ public class ClienteController {
         }
         model.addAttribute("cliente", cliente);
         return "form";
+    }
+
+    @GetMapping(value = "/eliminar/{id}")
+    public String eliminar(@PathVariable Long id) {
+
+        if (id >0){
+            clienteDao.delete(id);
+        }
+        return "redirect:/listar";
     }
 
 }

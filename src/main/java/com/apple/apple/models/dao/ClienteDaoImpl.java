@@ -32,9 +32,16 @@ public class ClienteDaoImpl implements IClienteDao {
             em.persist(cliente);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Cliente findOne(Long id) {
         return em.find(Cliente.class, id);
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long id) {
+        em.remove(findOne(id));
     }
 
 

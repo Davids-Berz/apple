@@ -22,6 +22,7 @@
                         <th scope="col">email</th>
                         <th scope="col">fecha</th>
                         <th>editar</th>
+                        <th>eliminar</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -32,6 +33,7 @@
                         <td th:text="${cliente.email}"></td>
                         <td th:text="${cliente.createAt}"></td>
                         <td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}">editar</a></td>
+                        <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}">eliminar</a></td>
                     </tr>
                 </tbody>
             </table>
