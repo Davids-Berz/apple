@@ -17,7 +17,7 @@ public class ClienteDaoImpl implements IClienteDao {
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public List<Cliente> findAll() {
         return em.createQuery("from Cliente").getResultList();
@@ -26,9 +26,16 @@ public class ClienteDaoImpl implements IClienteDao {
     @Transactional
     @Override
     public void save(Cliente cliente) {
-        em.persist(cliente);        
+        if (cliente.getId() != null && cliente.getId() > 0)
+            em.merge(cliente);
+        else
+            em.persist(cliente);
     }
 
-    
-    
+    @Override
+    public Cliente findOne(Long id) {
+        return em.find(Cliente.class, id);
+    }
+
+
 }
