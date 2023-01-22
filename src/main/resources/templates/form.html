@@ -36,6 +36,12 @@
             </td>
         </tr>
         <tr>
+            <td>fecha</td>
+            <td><input type="date" th:field="*{createAt}" class="form-control" th:errorclass="'alert alert-danger'">
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <input type="submit" value="crear cliente" class="btn btn-success">
             </td>
