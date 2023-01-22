@@ -8,13 +8,13 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <div class="container text-center">
-            <h3 class="text-primary" th:text="${titulo}"></h3>
-            <div class="text-start">
-                <a class="" th:href="@{/form}">Crear nuevo</a>
+        <div class="container text-center form-control form-control-lg py-2 my-4">
+            <h3 class="p-3 bg-dark bg-opacity-10 border border-dark-subtle border-start-0 border-end-0 rounded" th:text="${titulo}"></h3>
+            <div class="text-start py-2">
+                <a class="btn btn-success btn-xs" th:href="@{/form}">Crear nuevo</a>
             </div>
-            <table class="table table-bordered border-primary">
-                <thead>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
                     <tr>
                         <th scope="col">id</th>
                         <th scope="col">nombre</th>

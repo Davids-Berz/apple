@@ -27,11 +27,11 @@ public class Cliente implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Size(min = 4, max = 10)
+    @Size(min = 4, max = 50)
     private String nombre;
 
     @NotEmpty
-    @Size(min = 4, max = 10)
+    @Size(min = 4, max = 50)
     private String apellido;
 
     @Email
