@@ -1,5 +1,6 @@
 package com.apple.apple.controllers;
 
+import com.apple.apple.service.IClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,12 +21,12 @@ public class ClienteController {
 
     @Autowired
     @Qualifier("clienteDaoJPA")
-    private IClienteDao clienteDao;
+    private IClienteService clienteService;
 
     @RequestMapping(value = "/listar", method = RequestMethod.GET)
     private String listar(Model model) {
         model.addAttribute("titulo", "Listado de cliente");
-        model.addAttribute("clientes", clienteDao.findAll());
+        model.addAttribute("clientes", clienteService.findAll());
         return "listar";
     }
 
@@ -45,7 +46,7 @@ public class ClienteController {
             model.addAttribute("errors", result.getAllErrors());
             return "form";
         }
-        clienteDao.save(cliente);
+        clienteService.save(cliente);
         status.setComplete();
         return "redirect:listar";
     }
@@ -55,7 +56,7 @@ public class ClienteController {
         model.addAttribute("titulo", "Editar Cliente");
         Cliente cliente = new Cliente();
         if (id>0) {
-            cliente = clienteDao.findOne(id);
+            cliente = clienteService.findOne(id);
         } else {
             return "redirect:form";
         }
@@ -67,7 +68,7 @@ public class ClienteController {
     public String eliminar(@PathVariable Long id) {
 
         if (id >0){
-            clienteDao.delete(id);
+            clienteService.delete(id);
         }
         return "redirect:/listar";
     }
