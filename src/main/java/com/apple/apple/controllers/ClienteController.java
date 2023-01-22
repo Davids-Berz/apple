@@ -20,7 +20,7 @@ public class ClienteController {
 
 
     @Autowired
-    @Qualifier("clienteDaoJPA")
+    @Qualifier("ClienteServiceCrudRepository")
     private IClienteService clienteService;
 
     @RequestMapping(value = "/listar", method = RequestMethod.GET)

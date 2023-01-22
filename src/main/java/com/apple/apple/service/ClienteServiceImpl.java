@@ -1,41 +1,48 @@
 package com.apple.apple.service;
 
+import com.apple.apple.models.dao.IClienteCrud;
 import com.apple.apple.models.dao.IClienteDao;
 import com.apple.apple.models.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Qualifier("ClienteServiceCrudRepository")
 public class ClienteServiceImpl implements IClienteService {
 
     @Autowired
     private IClienteDao clienteDao;
 
+    @Autowired
+    private IClienteCrud clienteCrud;
+
+
 
     @Override
     @Transactional(readOnly = true)
     public List<Cliente> findAll() {
-        return clienteDao.findAll();
+        return (List<Cliente>) clienteCrud.findAll();
     }
 
     @Override
     @Transactional
     public void save(Cliente cliente) {
-        clienteDao.save(cliente);
+        clienteCrud.save(cliente);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Cliente findOne(Long id) {
-        return clienteDao.findOne(id);
+        return clienteCrud.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        clienteDao.delete(id);
+        clienteCrud.deleteById(id);
     }
 }
