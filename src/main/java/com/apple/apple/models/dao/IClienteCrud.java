@@ -1,7 +1,7 @@
 package com.apple.apple.models.dao;
 
 import com.apple.apple.models.entity.Cliente;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IClienteCrud extends CrudRepository<Cliente,Long> {
+public interface IClienteCrud extends JpaRepository<Cliente,Long> {
 }

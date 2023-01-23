@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <nav class="container " aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- primera -->
+                <li th:class="${page.first ? 'page-item disabled' : 'page-item '}">
+                    <span class="page-link" th:if="${page.first}" th:text="Primera"></span>
+                    <a 
+                    class="page-link" 
+                    th:if="${not page.first}" 
+                    th:href="@{${page.url}(page=0)}"
+                    th:text="Primera"></a>
+                </li>
+                <!-- anterior -->
+                <li th:class="${not page.hasPrevious ? 'page-item disabled' : 'page-item '}">
+                    <span class="page-link" th:if="${not page.hasPrevious}" th:text="anterior"></span>
+                    <a 
+                    class="page-link" 
+                    th:if="${page.hasPrevious}" 
+                    th:href="@{${page.url}(page=${page.currentPage-2})}" th:text="anterior"></a>
+                </li>
+                <!-- paginas -->
+                <li th:class="${item.current ? 'page-item active' : 'page-item'}" th:each="item : ${page.paginas}">
+                    <span class="page-link" th:if="${item.current}" th:text="${item.numero}"></span>
+                    <a 
+                    class="page-link" 
+                    th:if="${not item.current}" 
+                    th:href="@{${page.url}(page=${item.numero-1})}"
+                    th:text="${item.numero}"></a>
+                </li>
+                <!-- siguiente -->
+                <li th:class="${not page.hasNext ? 'page-item disabled' : 'page-item '}">
+                    <span class="page-link" th:if="${not page.hasNext}" th:text="Siguiente"></span>
+                    <a 
+                    class="page-link" 
+                    th:if="${page.hasNext}" 
+                    th:href="@{${page.url}(page=${page.currentPage})}" th:text="Siguiente"></a>
+                </li>
+                <!-- ultima -->
+                <li th:class="${page.last ? 'page-item disabled' : 'page-item '}">
+                    <span class="page-link" th:if="${page.last}" th:text="Ultima"></span>
+                    <a 
+                    class="page-link" 
+                    th:if="${not page.last}" 
+                    th:href="@{${page.url}(page=${page.totalPages -1})}" th:text="Ultima"></a>
+                </li>
+            </ul>
+        </nav>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>
