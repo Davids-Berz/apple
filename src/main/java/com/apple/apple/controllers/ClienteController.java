@@ -20,6 +20,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +37,7 @@ public class ClienteController {
     @Qualifier("ClienteServiceCrudRepository")
     private IClienteService clienteService;
 
-    @RequestMapping(value = {"/","/listar"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/listar"}, method = RequestMethod.GET)
     private String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
         Pageable pageRequest = PageRequest.of(page, 4);
@@ -56,7 +57,7 @@ public class ClienteController {
             return "redirect:/listar";
         }
         model.addAttribute("cliente", cliente);
-        model.addAttribute("titulo","Detalle cliente: ".concat(cliente.getNombre()));
+        model.addAttribute("titulo", "Detalle cliente: ".concat(cliente.getNombre()));
 
         return "ver";
     }
@@ -81,6 +82,15 @@ public class ClienteController {
         }
 
         if (!foto.isEmpty()) {
+
+            if (cliente.getId() != null && cliente.getId() > 0 && cliente.getFoto() != null && cliente.getFoto().length()>0) {
+                Path rootPath = Paths.get("C://Temp//uploads").resolve(cliente.getFoto()).toAbsolutePath();
+                File file = rootPath.toFile();
+                if (file.exists() && file.canRead()) {
+                    file.delete();
+                }
+            }
+
             String rootPath = "C://Temp//uploads";
             try {
                 byte[] bytes = foto.getBytes();
@@ -121,8 +131,17 @@ public class ClienteController {
     public String eliminar(@PathVariable Long id, RedirectAttributes flash) {
 
         if (id > 0) {
+            Cliente cliente = clienteService.findOne(id);
             clienteService.delete(id);
             flash.addFlashAttribute("success", "Cliente eliminado con exito");
+
+            Path rootPath = Paths.get("C://Temp//uploads").resolve(cliente.getFoto()).toAbsolutePath();
+            File file = rootPath.toFile();
+            if (file.exists() && file.canRead()) {
+                if (file.delete()) {
+                    flash.addFlashAttribute("info", "foto: ".concat(cliente.getNombre()).concat(" eliminada con exito"));
+                }
+            }
         }
         return "redirect:/listar";
     }
