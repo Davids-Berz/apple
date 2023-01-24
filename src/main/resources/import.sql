@@ -1,1 +1,1 @@
-insert into clientes (id, nombre, apellido, email, create_at) values (1, 'david', 'saldivar', 'david@gmail.com', '2023-01-18');
+insert into clientes (id, nombre, apellido, email, create_at, foto) values (1, 'david', 'saldivar', 'david@gmail.com', '2023-01-18','');

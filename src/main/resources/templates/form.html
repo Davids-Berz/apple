@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="d-flex justify-content-center ">
-            <form th:action="@{/form}" th:object="${cliente}" method="post" class="card p-2 m-2 text-center w-50">
+            <form th:action="@{/form}" th:object="${cliente}" method="post" class="card p-2 m-2 text-center w-50" enctype="multipart/form-data">
                 <h3 th:text="${titulo}" class="p-3 bg-success-subtle bg-opacity-10 border bg-success-subtle border-start-0 border-end-0 rounded mb-3"></h3>
                 <table>
                     <tr>
@@ -31,9 +31,18 @@
                             <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                         </td>
                     </tr>
+                    <tr>
                         <td>fecha</td>
                         <td><input type="date" th:field="*{createAt}" class="form-control" th:errorclass="'alert alert-danger'">
                             <small class="form-text text-danger" th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Foto</td>
+                        <td>
+                            <input type="file" name="pic" class="form-control">
+                           <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}">
+                            </small>
                         </td>
                     </tr>
                 </table>
