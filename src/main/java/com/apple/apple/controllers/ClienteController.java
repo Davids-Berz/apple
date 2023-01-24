@@ -3,6 +3,8 @@ package com.apple.apple.controllers;
 import com.apple.apple.service.IClienteService;
 import com.apple.apple.utils.paginator.PageRender;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,7 @@ import java.nio.file.Paths;
 @SessionAttributes("cliente")
 public class ClienteController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ClienteController.class);
 
     @Autowired
     @Qualifier("ClienteServiceCrudRepository")
