@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 
 @Controller
@@ -90,14 +91,15 @@ public class ClienteController {
                     file.delete();
                 }
             }
-
-            String rootPath = "C://Temp//uploads";
+            String uniqueFilename = foto.getOriginalFilename()+UUID.randomUUID();
+            Path rootPath = Paths.get("uploads").resolve(uniqueFilename);
+            Path pathAbsolute = rootPath.toAbsolutePath();
+            LOG.info("roothPath: " + rootPath);
+            LOG.info("pathAbsolute: " + pathAbsolute);
             try {
-                byte[] bytes = foto.getBytes();
-                Path fullPath = Paths.get(rootPath.concat("//").concat(foto.getOriginalFilename()));
-                Files.write(fullPath, bytes);
+                Files.copy(foto.getInputStream(), pathAbsolute);
                 flash.addFlashAttribute("fotoSuccess", "Foto subida!");
-                cliente.setFoto(foto.getOriginalFilename());
+                cliente.setFoto(uniqueFilename);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
