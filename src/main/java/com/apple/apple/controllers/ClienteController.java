@@ -1,6 +1,7 @@
 package com.apple.apple.controllers;
 
 import com.apple.apple.service.IClienteService;
+import com.apple.apple.service.IUploadFileService;
 import com.apple.apple.utils.paginator.PageRender;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -42,6 +43,9 @@ public class ClienteController {
     @Autowired
     @Qualifier("ClienteServiceCrudRepository")
     private IClienteService clienteService;
+
+    @Autowired
+    private IUploadFileService uploadFileService;
 
     /*@GetMapping("/uploads/{filename:.+}")
     public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
@@ -111,14 +115,14 @@ public class ClienteController {
 
         if (!foto.isEmpty()) {
 
-            if (cliente.getId() != null && cliente.getId() > 0 && cliente.getFoto() != null && cliente.getFoto().length()>0) {
+            if (cliente.getId() != null && cliente.getId() > 0 && cliente.getFoto() != null && cliente.getFoto().length() > 0) {
                 Path rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
                 File file = rootPath.toFile();
                 if (file.exists() && file.canRead()) {
                     file.delete();
                 }
             }
-            String uniqueFilename = foto.getOriginalFilename()+UUID.randomUUID();
+            String uniqueFilename = foto.getOriginalFilename() + UUID.randomUUID();
             Path rootPath = Paths.get("uploads").resolve(uniqueFilename);
             Path pathAbsolute = rootPath.toAbsolutePath();
             LOG.info("roothPath: " + rootPath);
@@ -164,12 +168,8 @@ public class ClienteController {
             clienteService.delete(id);
             flash.addFlashAttribute("success", "Cliente eliminado con exito");
 
-            Path rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
-            File file = rootPath.toFile();
-            if (file.exists() && file.canRead()) {
-                if (file.delete()) {
-                    flash.addFlashAttribute("info", "foto: ".concat(cliente.getNombre()).concat(" eliminada con exito"));
-                }
+            if (uploadFileService.delete(cliente.getFoto())) {
+                flash.addFlashAttribute("info", "foto: ".concat(cliente.getNombre()).concat(" eliminada con exito"));
             }
         }
         return "redirect:/listar";
