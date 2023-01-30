@@ -164,7 +164,7 @@ public class ClienteController {
             clienteService.delete(id);
             flash.addFlashAttribute("success", "Cliente eliminado con exito");
 
-            Path rootPath = Paths.get("C://Temp//uploads").resolve(cliente.getFoto()).toAbsolutePath();
+            Path rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
             File file = rootPath.toFile();
             if (file.exists() && file.canRead()) {
                 if (file.delete()) {
