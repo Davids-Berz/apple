@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "item_factura")
+@Table(name = "item_facturas")
 public class ItemFactura implements Serializable {
 
     public static final long serialVersionUID = 1L;
@@ -15,6 +15,10 @@ public class ItemFactura implements Serializable {
     private Long id;
 
     private Integer cantidad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id") //se puede omitir por el ManyToOne
+    private Producto producto;
 
     public Long getId() {
         return id;
@@ -32,7 +36,7 @@ public class ItemFactura implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Long calcularImporte() {
-        return cantidad.longValue();
+    public Double calcularImporte() {
+        return cantidad.doubleValue() * producto.getPrecio();
     }
 }
