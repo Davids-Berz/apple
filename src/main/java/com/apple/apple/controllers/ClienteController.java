@@ -112,7 +112,7 @@ public class ClienteController {
         if (!foto.isEmpty()) {
 
             if (cliente.getId() != null && cliente.getId() > 0 && cliente.getFoto() != null && cliente.getFoto().length()>0) {
-                Path rootPath = Paths.get("C://Temp//uploads").resolve(cliente.getFoto()).toAbsolutePath();
+                Path rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
                 File file = rootPath.toFile();
                 if (file.exists() && file.canRead()) {
                     file.delete();
