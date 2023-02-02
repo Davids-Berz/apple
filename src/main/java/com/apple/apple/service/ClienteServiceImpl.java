@@ -2,7 +2,9 @@ package com.apple.apple.service;
 
 import com.apple.apple.models.dao.IClienteCrud;
 import com.apple.apple.models.dao.IClienteDao;
+import com.apple.apple.models.dao.IProductoDao;
 import com.apple.apple.models.entity.Cliente;
+import com.apple.apple.models.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -22,7 +24,8 @@ public class ClienteServiceImpl implements IClienteService {
     @Autowired
     private IClienteCrud clienteCrud;
 
-
+    @Autowired
+    private IProductoDao productoDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -52,5 +55,11 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional
     public void delete(Long id) {
         clienteCrud.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findByName(String term) {
+        return productoDao.findByName(term);
     }
 }

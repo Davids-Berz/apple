@@ -1,6 +1,7 @@
 package com.apple.apple.service;
 
 import com.apple.apple.models.entity.Cliente;
+import com.apple.apple.models.entity.Producto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,4 +14,5 @@ public interface IClienteService {
     public void save(Cliente cliente);
     public Cliente findOne(Long id);
     public void delete(Long id);
+    public List<Producto> findByName(String term);
 }
