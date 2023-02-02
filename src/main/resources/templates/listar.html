@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="https://www.thymeleaf.org/">
-    <head th:replace="layout">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+    <head th:replace="layout :: header">
     </head>
     <body>
+        <div th:replace="layout :: nav"></div>
         <div class="container text-center form-control form-control-lg py-2 my-4">
             <h3 class="p-3 bg-dark bg-opacity-10 border border-dark-subtle border-start-0 border-end-0 rounded" th:text="${titulo}"></h3>
             <div class="text-start py-2">
@@ -42,6 +39,6 @@
 
         <div th:replace="paginator"></div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        
     </body>
 </html>
