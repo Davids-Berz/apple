@@ -13,11 +13,7 @@
                             },
                             success: function (data) {
                                 response($.map(data, function (item) {
-                                    return {
-                                        value: item.id, 
-                                        label: item.nombre, 
-                                        precio: item.precio
-                                    }
+                                    return {value: item.id, label: item.nombre, precio: item.precio}
                                 }))
                             }
                         })
