@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="https://www.thymeleaf.org/">
-    <body>
-        <script type="text/javascript" th:fragment="javascript">
-            $(document).ready(function () {
-                $("#buscar_producto").autocomplete({
-                    source: function (request, response) {
-                        $.ajax({
-                            url: "/factura/cargar-productos/" + request.term,
-                            dataType: "json",
-                            data: {
-                                term: request.term
-                            },
-                            success: function (data) {
-                                response($.map(data, function (item) {
-                                    return {value: item.id, label: item.nombre, precio: item.precio}
-                                }))
-                            }
-                        })
-                    },
-                    select: function (event, ui) {
-                        //$("#buscar_producto").val(ui.item.label)
-                        let linea = $('#plantillaItemsFactura').html()
-                        linea = linea.replace(/{ID}/, ui.item.value)
-                        linea = linea.replace(/{NOMBRE}/, ui.item.label)
-                        linea = linea.replace(/{PRECIO}/, ui.item.precio)
-                        $('#cargarItemProducto tbody').append(linea)
-                        return false
-                    }
-                })
-            })
-        </script>
-    </body>
+  <body>
+    <script type="text/javascript" th:fragment="javascript">
+      $(document).ready(function () {
+        $("#buscar_producto").autocomplete({
+          source: function (request, response) {
+            $.ajax({
+              url: "/factura/cargar-productos/" + request.term,
+              dataType: "json",
+              data: {
+                term: request.term,
+              },
+              success: function (data) {
+                response(
+                  $.map(data, function (item) {
+                    return {
+                      label: item.nombre,
+                      value: item.id,
+                      precio: item.precio,
+                    };
+                  })
+                );
+              },
+            });
+          },
+          select: function (event, ui) {
+            let linea = $("#plantillaItemsFactura").html();
+            linea = linea.replace(/{ID}/g, ui.item.value);
+            linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+            linea = linea.replace(/{PRECIO}/g, ui.item.precio);
+            $("#cargarItemProducto tbody").append(linea);
+            itemsHelper.calcularImporte(ui.item.value, ui.item.precio, 1);
+            return false;
+          },
+          focus: function (eveint, ui) {
+            event.preventDefault();
+            $('input[name="buscar_producto"]').val(ui.item.label);
+          },
+          open: function () {
+            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+          },
+          close: function () {
+            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+          },
+        });
+      });
+
+      var itemsHelper = {
+        calcularImporte: function (id, precio, cantidad) {
+          $("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
+        },
+      };
+    </script>
+  </body>
 </html>
