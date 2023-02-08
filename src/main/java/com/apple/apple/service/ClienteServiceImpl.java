@@ -2,8 +2,10 @@ package com.apple.apple.service;
 
 import com.apple.apple.models.dao.IClienteCrud;
 import com.apple.apple.models.dao.IClienteDao;
+import com.apple.apple.models.dao.IFacturaDao;
 import com.apple.apple.models.dao.IProductoDao;
 import com.apple.apple.models.entity.Cliente;
+import com.apple.apple.models.entity.Factura;
 import com.apple.apple.models.entity.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +28,9 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Autowired
     private IProductoDao productoDao;
+
+    @Autowired
+    private IFacturaDao facturaDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -61,5 +66,17 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional(readOnly = true)
     public List<Producto> findByName(String term) {
         return productoDao.findByName(term);
+    }
+
+    @Override
+    @Transactional
+    public void saveFactura(Factura factura) {
+        facturaDao.save(factura);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Producto findProductoById(Long id) {
+        return productoDao.getReferenceById(id);
     }
 }
