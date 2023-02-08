@@ -5,11 +5,13 @@ import com.apple.apple.models.entity.Factura;
 import com.apple.apple.models.entity.ItemFactura;
 import com.apple.apple.models.entity.Producto;
 import com.apple.apple.service.IClienteService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -49,12 +51,26 @@ public class FacturaController {
         return clienteService.findByName(term);
     }
 
-        @PostMapping("/form")
-    public String guardar(Factura factura,
+    @PostMapping("/form")
+    public String guardar(@Valid Factura factura,
+                          BindingResult result,
+                          Model model,
                           @RequestParam(name = "item_id[]", required = false) Long[] itemId,
                           @RequestParam(name = "cantidad[]", required = false) Integer[] cantidad,
                           RedirectAttributes flash,
                           SessionStatus status) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("titulo", "crear factura");
+            LOG.info(result.getAllErrors().toString());
+            return "factura/form";
+        }
+
+        if (itemId == null || itemId.length == 0) {
+            model.addAttribute("titulo", "crear factura");
+            model.addAttribute("error","Error: la Factura no tiene items");
+            return "factura/form";
+        }
 
         for (int i = 0; i < itemId.length; i++) {
             Producto producto = clienteService.findProductoById(itemId[i]);
