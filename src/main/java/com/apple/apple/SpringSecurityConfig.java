@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SpringSecurityConfig {
 
     @Autowired
@@ -29,11 +31,11 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar")
                 .permitAll()
-                .requestMatchers("/ver/**").hasAnyRole("USER")
+                /*.requestMatchers("/ver/**").hasAnyRole("USER")
                 .requestMatchers("/uploads/**").hasAnyRole("USER")
                 .requestMatchers("/form/**").hasAnyRole("ADMIN")
                 .requestMatchers("/delete/**").hasAnyRole("ADMIN")
-                .requestMatchers("/factura/**").hasAnyRole("ADMIN")
+                .requestMatchers("/factura/**").hasAnyRole("ADMIN")*/
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

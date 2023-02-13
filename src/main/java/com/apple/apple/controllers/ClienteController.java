@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -56,6 +58,7 @@ public class ClienteController {
     @Autowired
     private IUploadFileService uploadFileService;
 
+    @Secured("USER")
     @GetMapping("/uploads/{filename:.+}")
     public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
         Path pathPhoto = Paths.get("uploads").resolve(filename).toAbsolutePath();
@@ -79,7 +82,7 @@ public class ClienteController {
     }
 
     @RequestMapping(value = {"/", "/listar"}, method = RequestMethod.GET)
-    private String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
+    public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
                           Authentication authentication, HttpServletRequest request) {
 
         if (authentication != null) {
@@ -121,6 +124,9 @@ public class ClienteController {
         return "listar";
     }
 
+    //Cualquiera de las 2 formas (Secured y PreAuthorize)
+//    @Secured("ROLE_USER")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/ver/{id}")
     public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
 //        Cliente cliente = clienteService.findOne(id);
@@ -135,6 +141,8 @@ public class ClienteController {
         return "ver";
     }
 
+//    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/form")
     public String crear(Model model) {
         model.addAttribute("titulo", "Formulario Cliente");
@@ -143,6 +151,7 @@ public class ClienteController {
         return "form";
     }
 
+    @Secured("ADMIN")
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String guardar(Model model, @RequestParam(name = "pic") MultipartFile foto,
                           @Valid Cliente cliente, BindingResult result,
@@ -183,6 +192,7 @@ public class ClienteController {
         return "redirect:/listar";
     }
 
+    @Secured("ADMIN")
     @RequestMapping(value = "/form/{id}")
     public String editar(@PathVariable Long id, RedirectAttributes flash, Model model) {
         model.addAttribute("titulo", "Editar Cliente");
@@ -201,6 +211,7 @@ public class ClienteController {
         return "form";
     }
 
+    @Secured("ADMIN")
     @GetMapping(value = "/eliminar/{id}")
     public String eliminar(@PathVariable Long id, RedirectAttributes flash) {
 
