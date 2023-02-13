@@ -3,6 +3,7 @@ package com.apple.apple.controllers;
 import com.apple.apple.service.IClienteService;
 import com.apple.apple.service.IUploadFileService;
 import com.apple.apple.utils.paginator.PageRender;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,7 +80,7 @@ public class ClienteController {
 
     @RequestMapping(value = {"/", "/listar"}, method = RequestMethod.GET)
     private String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
-                          Authentication authentication) {
+                          Authentication authentication, HttpServletRequest request) {
 
         if (authentication != null) {
             LOG.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
@@ -93,6 +96,20 @@ public class ClienteController {
 
         if (hasRole("ROLE_ADMIN")) {
             LOG.info("Hola ".concat(auth.getName()).concat(" tienes acceso"));
+        }
+
+        SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request, "ROLE_");
+
+        if (securityContext.isUserInRole("ADMIN")) {
+            LOG.info("Utilizando SecurityContextHolderAwareRequestWrapper ".concat(auth.getName()).concat(" tienes acceso"));
+        } else {
+            LOG.info("Utilizando SecurityContextHolderAwareRequestWrapper /// No tienes acceso");
+        }
+
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            LOG.info("Utilizando HttpServletRequest ".concat(auth.getName()).concat(" tienes acceso"));
+        } else {
+            LOG.info("Utilizando HttpServletRequest /// No tienes acceso");
         }
 
         Pageable pageRequest = PageRequest.of(page, 4);
