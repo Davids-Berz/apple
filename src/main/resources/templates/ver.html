@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="https://www.thymeleaf.org/" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="layout :: header"></head>
+    <head th:replace="layout :: head"></head>
     <body>
         <div th:replace="layout :: nav"></div>
         <div class="container">
@@ -55,5 +55,6 @@
 
             </div>
         </body>
+        <div th:replace="layout :: footer"></div>
     </body>
 </html>

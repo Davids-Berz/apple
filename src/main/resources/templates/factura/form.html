@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="https://www.thymeleaf.org/">
-    <head th:replace="layout :: header"></head>
+    <head th:replace="layout :: head"></head>
     <body>
     <div th:replace="layout :: nav"></div>
         <div class="container">
@@ -67,6 +67,7 @@
                 </div>
             </div>
         </div>
+        <div th:replace="layout :: footer"></div>
         <script th:replace="factura/js/autocomplete-products :: javascript"></script>
     </body>
 </html>

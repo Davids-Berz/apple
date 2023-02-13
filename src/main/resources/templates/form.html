@@ -1,51 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="https://www.thymeleaf.org/" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head th:replace="layout :: header"></head>
-    <body>
+<html
+  lang="en"
+  xmlns="https://www.thymeleaf.org/"
+  xmlns:th="http://www.w3.org/1999/xhtml"
+>
+  <head th:replace="layout :: head"></head>
+  <body>
     <div th:replace="layout :: nav"></div>
-        <div class="d-flex justify-content-center ">
-            <form th:action="@{/form}" th:object="${cliente}" method="post" class="card p-2 m-2 text-center w-50" enctype="multipart/form-data">
-                <h3 th:text="${titulo}" class="p-3 bg-success-subtle bg-opacity-10 border bg-success-subtle border-start-0 border-end-0 rounded mb-3"></h3>
-                <table>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>
-                            <input type="text" th:field="*{nombre}" class="form-control" th:errorclass="'alert alert-danger'">
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Apellido</td>
-                        <td><input type="text" th:field="*{apellido}" class="form-control" th:errorclass="'form-control alert alert-danger'">
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>email</td>
-                        <td><input type="email" th:field="*{email}" class="form-control" th:errorclass="'alert alert-danger'">
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>fecha</td>
-                        <td><input type="date" th:field="*{createAt}" class="form-control" th:errorclass="'alert alert-danger'">
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Foto</td>
-                        <td>
-                            <input type="file" name="pic" class="form-control">
-                           <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}">
-                            </small>
-                        </td>
-                    </tr>
-                </table>
-                <div class="text-start">
-                    <input type="submit" value="crear cliente" class="btn btn-success mt-4">
-                </div>
-            </form>
-
+    <div class="d-flex justify-content-center">
+      <form
+        th:action="@{/form}"
+        th:object="${cliente}"
+        method="post"
+        class="card p-2 m-2 text-center w-50"
+        enctype="multipart/form-data"
+      >
+        <h3
+          th:text="${titulo}"
+          class="p-3 bg-success-subtle bg-opacity-10 border bg-success-subtle border-start-0 border-end-0 rounded mb-3"
+        ></h3>
+        <table>
+          <tr>
+            <td>Nombre</td>
+            <td>
+              <input
+                type="text"
+                th:field="*{nombre}"
+                class="form-control"
+                th:errorclass="'alert alert-danger'"
+              />
+              <small
+                class="form-text text-danger"
+                th:if="${#fields.hasErrors('nombre')}"
+                th:errors="*{nombre}"
+              ></small>
+            </td>
+          </tr>
+          <tr>
+            <td>Apellido</td>
+            <td>
+              <input
+                type="text"
+                th:field="*{apellido}"
+                class="form-control"
+                th:errorclass="'form-control alert alert-danger'"
+              />
+              <small
+                class="form-text text-danger"
+                th:if="${#fields.hasErrors('apellido')}"
+                th:errors="*{apellido}"
+              ></small>
+            </td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>
+              <input
+                type="email"
+                th:field="*{email}"
+                class="form-control"
+                th:errorclass="'alert alert-danger'"
+              />
+              <small
+                class="form-text text-danger"
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+              ></small>
+            </td>
+          </tr>
+          <tr>
+            <td>fecha</td>
+            <td>
+              <input
+                type="date"
+                th:field="*{createAt}"
+                class="form-control"
+                th:errorclass="'alert alert-danger'"
+              />
+              <small
+                class="form-text text-danger"
+                th:if="${#fields.hasErrors('createAt')}"
+                th:errors="*{createAt}"
+              ></small>
+            </td>
+          </tr>
+          <tr>
+            <td>Foto</td>
+            <td>
+              <input type="file" name="pic" class="form-control" />
+              <small
+                class="form-text text-danger"
+                th:if="${#fields.hasErrors('foto')}"
+                th:errors="*{foto}"
+              >
+              </small>
+            </td>
+          </tr>
+        </table>
+        <div class="text-start">
+          <input
+            type="submit"
+            value="crear cliente"
+            class="btn btn-success mt-4"
+          />
         </div>
-    </body>
+      </form>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+  </body>
 </html>
