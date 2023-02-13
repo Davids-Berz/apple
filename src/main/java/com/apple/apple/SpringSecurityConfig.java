@@ -1,5 +1,7 @@
 package com.apple.apple;
 
+import com.apple.apple.auth.handler.LogginSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
+    @Autowired
+    private LogginSuccessHandler successHandler;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -32,7 +36,9 @@ public class SpringSecurityConfig {
                 .requestMatchers("/factura/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login")
+                .formLogin()
+                .successHandler(successHandler)
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout().permitAll()
