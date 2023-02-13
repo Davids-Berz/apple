@@ -32,7 +32,10 @@ public class SpringSecurityConfig {
                 .requestMatchers("/factura/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login")
+                .permitAll()
+                .and()
+                .logout().permitAll()
                 .and()
                 .httpBasic()
                 .and().build();
