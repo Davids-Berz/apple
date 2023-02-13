@@ -24,6 +24,9 @@ public class SpringSecurityConfig {
 
     @Autowired
     private LogginSuccessHandler successHandler;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -55,13 +58,13 @@ public class SpringSecurityConfig {
         manager.createUser(
                 User
                         .withUsername("admin")
-                        .password(passwordEncoder().encode("admin"))
+                        .password(passwordEncoder.encode("admin"))
                         .roles("USER","ADMIN")
                         .build());
         manager.createUser(
                 User
                         .withUsername("user")
-                        .password(passwordEncoder().encode("user"))
+                        .password(passwordEncoder.encode("user"))
                         .roles("USER")
                         .build());
         return manager;
@@ -71,12 +74,9 @@ public class SpringSecurityConfig {
     AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder())
+                .passwordEncoder(passwordEncoder)
                 .and().build();
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }
