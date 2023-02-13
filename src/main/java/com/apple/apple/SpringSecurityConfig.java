@@ -21,7 +21,7 @@ public class SpringSecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf().disable()
+//                .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar")
                 .permitAll()
@@ -37,7 +37,7 @@ public class SpringSecurityConfig {
                 .and()
                 .logout().permitAll()
                 .and()
-                .httpBasic()
+                .exceptionHandling().accessDeniedPage("/errors/error_404")
                 .and().build();
     }
 

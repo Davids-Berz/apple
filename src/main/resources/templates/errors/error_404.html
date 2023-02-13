@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="https://www.thymeleaf.org/">
-<head th:fragment="layout :: head"> </head>
-<body>
-<div class="container">
-  <div class="card bg-danger text-white">
-    <div class="card-header">Error de acceso denegado</div>
-    <div class="card-body">
-      <h5 class="card-title">
-        Los sentimos
-        <span th:text="${#httpServletRequest.remoteUser}">
-              No tienes permismos para acceder a este recurso
+<html
+  lang="en"
+  xmlns="https://www.thymeleaf.org/"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="layout :: head"> </head>
+  <body>
+    <div class="container my-4">
+      <div class="card bg-danger text-white">
+        <div class="card-header">Error de acceso denegado</div>
+        <div class="card-body">
+          <h5 class="card-title">
+            Los sentimos
+            <span sec:authentication="name">
             </span>
-      </h5>
-      <a
-              th:href="@{/listar}"
-              class="btn btn-outline-light"
-              role="button"
-      ></a>
+            No tienes permismos para acceder a este recurso
+          </h5>
+          <a th:href="@{/listar}" class="btn btn-outline-light" role="button"
+            >Regresar</a
+          >
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div th:replace="layout :: footer"></div>
-</body>
+    <div th:replace="layout :: footer"></div>
+    asdasdasd
+  </body>
 </html>
