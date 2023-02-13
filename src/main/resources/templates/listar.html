@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="https://www.thymeleaf.org/">
+<html lang="en" xmlns="https://www.thymeleaf.org/"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="layout :: head"></head>
     <body>
         <div th:replace="layout :: nav"></div>
         <div class="container text-center form-control form-control-lg py-2 my-4">
             <h3 class="p-3 bg-dark bg-opacity-10 border border-dark-subtle border-start-0 border-end-0 rounded" th:text="${titulo}"></h3>
             <div class="text-start py-2">
-                <a class="btn btn-success btn-xs" th:href="@{/form}">Crear nuevo</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs" th:href="@{/form}">Crear nuevo</a>
             </div>
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">id</th>
+                        <th sec:authorize="hasRole('ROLE_USER')" scope="col">id</th>
                         <th scope="col">nombre</th>
                         <th scope="col">apellido</th>
                         <th scope="col">email</th>
                         <th scope="col">fecha</th>
-                        <th>Crear Factura</th>
-                        <th>editar</th>
-                        <th>eliminar</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')">Crear Factura</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
                     <tr th:each="cliente : ${clientes}">
-                        <td ><a class="text-decoration-none text-dark" th:href="@{/ver/}+${cliente.id}" th:text="${cliente.id}"></button></td>
+                        <td sec:authorize="hasRole('ROLE_USER')"><a class="text-decoration-none text-dark" th:href="@{/ver/}+${cliente.id}" th:text="${cliente.id}"></button></td>
                         <td th:text="${cliente.nombre}"></td>
                         <td th:text="${cliente.apellido}"></td>
                         <td th:text="${cliente.email}"></td>
                         <td th:text="${cliente.createAt}"></td>
-                        <td><a class="btn btn-success btn-xs" th:href="@{/factura/form/} + ${cliente.id}">crear Factura</a></td>
-                        <td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}">editar</a></td>
-                        <td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}">eliminar</a></td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-success btn-xs" th:href="@{/factura/form/} + ${cliente.id}">crear Factura</a></td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}">editar</a></td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}">eliminar</a></td>
                     </tr>
                 </tbody>
             </table>
