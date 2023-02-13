@@ -47,11 +47,11 @@ public class ClienteController {
     @Autowired
     private IUploadFileService uploadFileService;
 
-    /*@GetMapping("/uploads/{filename:.+}")
+    @GetMapping("/uploads/{filename:.+}")
     public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
         Path pathPhoto = Paths.get("uploads").resolve(filename).toAbsolutePath();
         LOG.info("pathPhoto: " + pathPhoto);
-        Resource recurso;
+        Resource recurso = null;
         try {
             recurso = new UrlResource(pathPhoto.toUri());
             if (!recurso.exists() && !recurso.isReadable()) {
@@ -65,9 +65,9 @@ public class ClienteController {
 
         return ResponseEntity
                 .ok()
-                .header(HttpHeaders.CONTENT_TYPE, "attachment; filename=\"" + recurso.getFilename() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
                 .body(recurso);
-    }*/
+    }
 
     @RequestMapping(value = {"/", "/listar"}, method = RequestMethod.GET)
     private String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
