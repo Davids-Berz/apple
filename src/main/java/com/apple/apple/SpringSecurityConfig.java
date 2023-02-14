@@ -1,6 +1,7 @@
 package com.apple.apple;
 
 import com.apple.apple.auth.handler.LogginSuccessHandler;
+import com.apple.apple.service.JpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,11 @@ public class SpringSecurityConfig {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+/*    @Autowired
+    private DataSource dataSource;*/
+
     @Autowired
-    private DataSource dataSource;
+    private JpaUserDetailsService jpaUserDetailsService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager manager) throws Exception {
@@ -73,7 +77,7 @@ public class SpringSecurityConfig {
                         .build());
         return manager;
     }*/
-    @Bean
+    /*@Bean
     AuthenticationManager authManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 //.userDetailsService(userDetailsService())
@@ -82,6 +86,14 @@ public class SpringSecurityConfig {
                 .passwordEncoder(passwordEncoder)
                 .usersByUsernameQuery("select username, password, enable from users where username=?")
                 .authoritiesByUsernameQuery("select u.username, a.authority from authorities a inner join users u on (a.user_id=u.id) where u.username=?")
+                .and().build();
+    }*/
+
+    @Bean
+    AuthenticationManager authManagerJPA(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(jpaUserDetailsService)
+                .passwordEncoder(passwordEncoder)
                 .and().build();
     }
 
