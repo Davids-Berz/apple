@@ -29,7 +29,7 @@ public class AppleApplication implements CommandLineRunner {
 
 		for (int i = 0; i < 2; i++) {
 			String bcriptPass = passwordEncoder.encode(password);
-			System.out.println("bcriptPass " + i +": "+bcriptPass);
+			System.out.println("bcriptPass " + i +": "+ bcriptPass);
 		}
 	}
 }

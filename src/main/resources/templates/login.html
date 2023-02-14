@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
-  <head th:replace="layout :: head"> </head>
+  <head th:replace="~{layout :: head}"> </head>
   <body>
-    <div th:replace="layout :: nav"></div>
+    <div th:replace="~{layout :: nav}"></div>
     <div class="container d-inline-flex p-2 justify-content-center">
       <div class="card border-primary d-inline-flex p-2">
         <div class="card-header text-center" th:text="'iniciar sesion'"></div>
@@ -22,6 +22,6 @@
         </div>
       </div>
     </div>
-    <div th:replace="layout :: footer"></div>
+    <div th:replace="~{layout :: footer}"></div>
   </body>
 </html>

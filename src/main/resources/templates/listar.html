@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="https://www.thymeleaf.org/"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="layout :: head"></head>
+    <head th:replace="~{layout :: head}"></head>
     <body>
-        <div th:replace="layout :: nav"></div>
+        <div th:replace="~{layout :: nav}"></div>
         <div class="container text-center form-control form-control-lg py-2 my-4">
             <h3 class="p-3 bg-dark bg-opacity-10 border border-dark-subtle border-start-0 border-end-0 rounded" th:text="${titulo}"></h3>
             <div class="text-start py-2">
@@ -37,8 +37,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </table>
         </div>
 
-        <div th:replace="paginator :: paginator"></div>
-        <div th:replace="layout :: footer"></div>
+        <div th:replace="~{paginator :: paginator}"></div>
+        <div th:replace="~{layout :: footer}"></div>
 
     </body>
 </html>
