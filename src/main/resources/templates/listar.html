@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="https://www.thymeleaf.org/"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="~{layout :: head}"></head>
     <body>
         <div th:replace="~{layout :: nav}"></div>
         <div class="container text-center form-control form-control-lg py-2 my-4">
-            <h3 class="p-3 bg-dark bg-opacity-10 border border-dark-subtle border-start-0 border-end-0 rounded" th:text="${titulo}"></h3>
+            <h3 class="p-3 bg-dark bg-opacity-10 border border-dark-subtle border-start-0 border-end-0 rounded" th:text="#{text.cliente.listar.titulo}"></h3>
             <div class="text-start py-2">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs" th:href="@{/form}">Crear nuevo</a>
             </div>
@@ -13,13 +13,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <thead class="table-dark">
                     <tr>
                         <th sec:authorize="hasRole('ROLE_USER')" scope="col">id</th>
-                        <th scope="col">nombre</th>
-                        <th scope="col">apellido</th>
-                        <th scope="col">email</th>
-                        <th scope="col">fecha</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')">Crear Factura</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
+                        <th th:utext="#{text.cliente.nombre}">nombre</th>
+                        <th th:text="#{text.cliente.apellido}">apellido</th>
+                        <th th:text="#{text.cliente.email}">email</th>
+                        <th th:text="#{text.cliente.createAt}">fecha</th>
+
+                        <th th:text="#{text.cliente.factura.crear}" sec:authorize="hasRole('ROLE_ADMIN')">Crear Factura</th>
+                        <th th:text="#{text.cliente.editar}" sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
+                        <th th:text="#{text.cliente.eliminar}" sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">

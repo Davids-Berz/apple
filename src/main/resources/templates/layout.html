@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  xmlns="https://www.thymeleaf.org/"
+  xmlns:th="https://www.thymeleaf.org/"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head th:fragment="head">
@@ -71,6 +71,17 @@
                   <input type="hidden" name="_crsf.parameterName" value="_crsf.token">
                 </form>
               </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav d-flex my-4">
+            <li class="nav-item mx-1">
+              <a class="btn btn-outline-success" href="?lang=es_ES">ES</a>
+            </li>
+            <li class="nav-item mx-1">
+              <a class="btn btn-outline-success" href="?lang=en_US">EN</a>
+            </li>
+            <li class="nav-item mx-1">
+              <a class="btn btn-outline-success" href="?lang=de_DE">DE</a>
             </li>
           </ul>
         </div>
