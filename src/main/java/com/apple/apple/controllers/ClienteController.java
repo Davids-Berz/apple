@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -42,6 +43,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.UUID;
 
 
@@ -57,6 +59,9 @@ public class ClienteController {
 
     @Autowired
     private IUploadFileService uploadFileService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Secured("USER")
     @GetMapping("/uploads/{filename:.+}")
@@ -83,7 +88,8 @@ public class ClienteController {
 
     @RequestMapping(value = {"/", "/listar"}, method = RequestMethod.GET)
     public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
-                          Authentication authentication, HttpServletRequest request) {
+                         Authentication authentication, HttpServletRequest request,
+                         Locale locale) {
 
         if (authentication != null) {
             LOG.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
@@ -118,7 +124,7 @@ public class ClienteController {
         Pageable pageRequest = PageRequest.of(page, 4);
         Page<Cliente> clientes = clienteService.findAll(pageRequest);
         PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
-        model.addAttribute("titulo", "Listado de cliente");
+        model.addAttribute("titulo", messageSource.getMessage("text.cliente.listar.titulo", null, locale));
         model.addAttribute("clientes", clientes);
         model.addAttribute("page", pageRender);
         return "listar";
