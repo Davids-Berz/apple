@@ -192,7 +192,7 @@ public class ClienteController {
         return "redirect:/listar";
     }
 
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/form/{id}")
     public String editar(@PathVariable Long id, RedirectAttributes flash, Model model) {
         model.addAttribute("titulo", "Editar Cliente");
@@ -211,7 +211,7 @@ public class ClienteController {
         return "form";
     }
 
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/eliminar/{id}")
     public String eliminar(@PathVariable Long id, RedirectAttributes flash) {
 

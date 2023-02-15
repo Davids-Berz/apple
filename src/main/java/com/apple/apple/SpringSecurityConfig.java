@@ -40,11 +40,11 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar", "/locale")
                 .permitAll()
-                /*.requestMatchers("/ver/**").hasAnyRole("USER")
+                .requestMatchers("/ver/**").hasAnyRole("USER")
                 .requestMatchers("/uploads/**").hasAnyRole("USER")
                 .requestMatchers("/form/**").hasAnyRole("ADMIN")
                 .requestMatchers("/delete/**").hasAnyRole("ADMIN")
-                .requestMatchers("/factura/**").hasAnyRole("ADMIN")*/
+                .requestMatchers("/factura/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
