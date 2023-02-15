@@ -8,7 +8,7 @@
         <div class="card-header border-danger-subtle border-bottom" th:text="${titulo}"></div>
         <div class="card-body">
           <h4 class="card-title d-flex justify-content-end">
-            
+            <a class="btn btn-success btn-xs mx-2" th:href="@{'/factura/ver/' + ${factura.id}(format=xlsx)}">Exportar a Excel</a>
                 <a class="btn btn-danger btn-xs " th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}">Exportar a PDF</a>
 
           </h4>
