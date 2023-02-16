@@ -1,6 +1,7 @@
 package com.apple.apple;
 
 import com.apple.apple.auth.filter.JWTAuthenticationFilter;
+import com.apple.apple.auth.filter.JWTAuthorizationFilter;
 import com.apple.apple.auth.handler.LogginSuccessHandler;
 import com.apple.apple.service.JpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ public class SpringSecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationConfiguration.getAuthenticationManager()))
                 .build();
     }
 

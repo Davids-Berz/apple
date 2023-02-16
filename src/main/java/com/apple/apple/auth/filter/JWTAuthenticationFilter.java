@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
@@ -28,6 +27,8 @@ import java.util.Map;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
+
+    public static final String KEY = "w$5mZDfEJv@9gk#2GcQx8yLHnN^&p!KuP4tVlS7z@h3rbYXaT";
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -78,7 +79,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .builder()
                 .setClaims(claims)
                 .setSubject(username)
-                .signWith(SignatureAlgorithm.HS512,"w$5mZDfEJv@9gk#2GcQx8yLHnN^&p!KuP4tVlS7z@h3rbYXaT".getBytes())
+                .signWith(SignatureAlgorithm.HS512,KEY.getBytes())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000L))
                 .compact();
