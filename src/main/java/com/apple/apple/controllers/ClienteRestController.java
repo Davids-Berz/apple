@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-rest")
+@RequestMapping("/api/clientes")
 public class ClienteRestController {
 
     @Autowired
     IClienteService clienteService;
 
     //    XML + formato JSON
-    @GetMapping(value = "/listar-xml")
+    @GetMapping(value = "/listar")
     public ClienteList listarXml() {
         return new ClienteList(clienteService.findAll());
     }

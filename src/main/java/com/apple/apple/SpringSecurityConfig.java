@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -27,18 +28,18 @@ public class SpringSecurityConfig {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-/*    @Autowired
-    private DataSource dataSource;*/
-
     @Autowired
     private JpaUserDetailsService jpaUserDetailsService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager manager) throws Exception {
         return http
-//                .csrf().disable()
+                .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar", "/locale","/api/**")
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar", "/locale")
                 .permitAll()
                 .requestMatchers("/ver/**").hasAnyRole("USER")
                 .requestMatchers("/uploads/**").hasAnyRole("USER")
@@ -46,48 +47,8 @@ public class SpringSecurityConfig {
                 .requestMatchers("/delete/**").hasAnyRole("ADMIN")
                 .requestMatchers("/factura/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .successHandler(successHandler)
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout().permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/errors/error_404")
                 .and().build();
     }
-
-    /*
-    //pruebas en memoria
-    @Bean
-    UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(
-                User
-                        .withUsername("admin")
-                        .password(passwordEncoder.encode("admin"))
-                        .roles("USER","ADMIN")
-                        .build());
-        manager.createUser(
-                User
-                        .withUsername("user")
-                        .password(passwordEncoder.encode("user"))
-                        .roles("USER")
-                        .build());
-        return manager;
-    }*/
-    /*@Bean
-    AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                //.userDetailsService(userDetailsService())
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder)
-                .usersByUsernameQuery("select username, password, enable from users where username=?")
-                .authoritiesByUsernameQuery("select u.username, a.authority from authorities a inner join users u on (a.user_id=u.id) where u.username=?")
-                .and().build();
-    }*/
 
     @Bean
     AuthenticationManager authManagerJPA(HttpSecurity http) throws Exception {
