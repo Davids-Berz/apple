@@ -1,5 +1,7 @@
 package com.apple.apple.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -7,6 +9,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "productos")
+//de preferencia en atributo producto en ItemFactura (se deja como referencia de que se puede usar aqui)
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Producto implements Serializable {
 
     public static final long serialVersionUID = 1l;

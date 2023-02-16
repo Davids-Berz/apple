@@ -1,5 +1,6 @@
 package com.apple.apple.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class ItemFactura implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id") //se puede omitir por el ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     private Producto producto;
 
     public Long getId() {
