@@ -15,6 +15,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="clientes")
 public class Cliente implements Serializable {
 
+    public static final long serialVersionUID = 1L;
+
     public Cliente() {
         facturas = new ArrayList<>();
     }
@@ -45,8 +47,6 @@ public class Cliente implements Serializable {
 
     private String foto;
     
-     private static final Long serialVersionUID = 1L;
-
     public Long getId() {
         return id;
     }

@@ -10,7 +10,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs" th:href="@{/form}">Crear nuevo</a>
             </div>
             <div class="d-flex justify-content-end my-2">
-                <a class="btn btn-secondary btn-xs " th:href="@{'/listar'(format=csv)}">CSV</a>
+                <a class="btn btn-outline-secondary btn-xs mx-2" th:href="@{'/listar'(format=csv)}">CSV</a>
+                <a class="btn btn-outline-secondary btn-xs " th:href="@{'/listar'(format=xml)}">XML</a>
             </div>
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">

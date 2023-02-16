@@ -2,7 +2,7 @@ package com.apple.apple.models.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "facturas")
 public class Factura implements Serializable {
+
+    public static final long serialVersionUID = 1L;
 
     public Factura() {
         this.items = new ArrayList<>();
@@ -70,6 +72,7 @@ public class Factura implements Serializable {
         this.createAt = createAt;
     }
 
+    @XmlTransient
     public Cliente getCliente() {
         return cliente;
     }
