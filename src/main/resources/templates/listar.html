@@ -12,6 +12,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <div class="d-flex justify-content-end my-2">
                 <a class="btn btn-outline-secondary btn-xs mx-2" th:href="@{'/listar'(format=csv)}">CSV</a>
                 <a class="btn btn-outline-secondary btn-xs " th:href="@{'/listar'(format=xml)}">XML</a>
+                <a class="btn btn-outline-warning btn-xs " th:href="@{'/listar'(format=json)}">JSON</a>
             </div>
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
