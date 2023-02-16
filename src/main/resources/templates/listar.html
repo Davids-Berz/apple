@@ -9,6 +9,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <div class="text-start py-2">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs" th:href="@{/form}">Crear nuevo</a>
             </div>
+            <div class="d-flex justify-content-end my-2">
+                <a class="btn btn-secondary btn-xs " th:href="@{'/listar'(format=csv)}">CSV</a>
+            </div>
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
