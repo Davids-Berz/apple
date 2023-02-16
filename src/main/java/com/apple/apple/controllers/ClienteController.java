@@ -3,6 +3,7 @@ package com.apple.apple.controllers;
 import com.apple.apple.service.IClienteService;
 import com.apple.apple.service.IUploadFileService;
 import com.apple.apple.utils.paginator.PageRender;
+import com.apple.apple.view.xml.ClienteList;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -43,6 +44,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -84,6 +86,17 @@ public class ClienteController {
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
                 .body(recurso);
+    }
+
+    @GetMapping(value = "/api/listar")
+    public @ResponseBody List<Cliente> listarRest() {
+        return clienteService.findAll();
+    }
+
+//    XML + formato JSON
+    @GetMapping(value = "/api/listar-xml")
+    public @ResponseBody ClienteList listarRestXml() {
+        return new ClienteList(clienteService.findAll());
     }
 
     @RequestMapping(value = {"/", "/listar"}, method = RequestMethod.GET)

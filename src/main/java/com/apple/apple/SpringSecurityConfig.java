@@ -38,7 +38,7 @@ public class SpringSecurityConfig {
         return http
 //                .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar", "/locale")
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/listar", "/locale","/api/**")
                 .permitAll()
                 .requestMatchers("/ver/**").hasAnyRole("USER")
                 .requestMatchers("/uploads/**").hasAnyRole("USER")
