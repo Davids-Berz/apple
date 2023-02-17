@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
   <body>
     <script type="text/javascript" th:fragment="javascript">
+    let urlAjax = $('#urlAjax').val()
       $(document).ready(function () {
         $("#buscar_producto").autocomplete({
           source: function (request, response) {
             $.ajax({
-              url: "/factura/cargar-productos/" + request.term,
+              url: urlAjax + request.term,
               dataType: "json",
               data: {
                 term: request.term,
