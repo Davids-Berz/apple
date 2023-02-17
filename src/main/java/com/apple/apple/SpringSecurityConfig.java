@@ -3,6 +3,7 @@ package com.apple.apple;
 import com.apple.apple.auth.filter.JWTAuthenticationFilter;
 import com.apple.apple.auth.filter.JWTAuthorizationFilter;
 import com.apple.apple.auth.handler.LogginSuccessHandler;
+import com.apple.apple.auth.service.JWTService;
 import com.apple.apple.service.JpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +15,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -39,6 +38,9 @@ public class SpringSecurityConfig {
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
 
+    @Autowired
+    private JWTService jwtService;
+
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager manager) throws Exception {
@@ -58,8 +60,8 @@ public class SpringSecurityConfig {
                 .requestMatchers("/factura/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationConfiguration.getAuthenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationConfiguration.getAuthenticationManager(), jwtService))
+                .addFilter(new JWTAuthorizationFilter(authenticationConfiguration.getAuthenticationManager(), jwtService))
                 .build();
     }
 
