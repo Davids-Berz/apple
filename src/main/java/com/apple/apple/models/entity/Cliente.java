@@ -15,6 +15,8 @@ import jakarta.persistence.TemporalType;
 @Table(name="clientes")
 public class Cliente implements Serializable {
 
+    private static final Long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +28,6 @@ public class Cliente implements Serializable {
     @Column(name="create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
-
-    private static final Long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
