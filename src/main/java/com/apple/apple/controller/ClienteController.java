@@ -68,13 +68,34 @@ public class ClienteController {
     }
 
     @PutMapping("/clientes/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cliente update(@RequestBody Cliente cliente, @PathVariable Long id) {
+    public ResponseEntity<?>  update(@RequestBody Cliente cliente, @PathVariable Long id) {
+        Cliente updateClient;
+
         Cliente currentClient = clienteService.findById(id);
-        currentClient.setNombre(cliente.getNombre());
-        currentClient.setApellido(cliente.getNombre());
-        currentClient.setEmail(cliente.getEmail());
-        return clienteService.save(cliente);
+        Map<String, Object> resp = new HashMap<>();
+
+        if (currentClient == null) {
+            resp.put("mensaje", "El cliente id: " + id.toString() + " no existe");
+            return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            currentClient.setNombre(cliente.getNombre());
+            currentClient.setApellido(cliente.getNombre());
+            currentClient.setEmail(cliente.getEmail());
+            currentClient.setCreateAt(cliente.getCreateAt());
+            updateClient = clienteService.save(currentClient);
+
+        }catch (Exception e) {
+            resp.put("mensaje", "Error en la base de datos al realizar el update");
+            resp.put("weeoe", e.getCause());
+            return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
+        }
+
+        resp.put("mensaje", "El cliente ah sido acualizado con exito");
+        resp.put("cliente", updateClient);
+
+        return new ResponseEntity<>(resp, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/clientes/{id}")
