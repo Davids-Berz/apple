@@ -37,7 +37,7 @@ public class ClienteController {
 
         } catch (DataAccessException e) {
             resp.put("mensaje", "Error en la base de datos");
-            resp.put("weeoe", e.getMessage());
+            resp.put("error", e.getMessage());
             return new ResponseEntity<Map<String, Object>>(resp, HttpStatus.NOT_FOUND);
         }
         if (cliente == null) {
@@ -57,7 +57,7 @@ public class ClienteController {
             newClient = clienteService.save(cliente);
         }catch (Exception e) {
             resp.put("mensaje", "Error en la base de datos al realizar el insert");
-            resp.put("weeoe", e.getLocalizedMessage());
+            resp.put("error", e.getLocalizedMessage());
             return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
         }
 
@@ -88,7 +88,7 @@ public class ClienteController {
 
         }catch (Exception e) {
             resp.put("mensaje", "Error en la base de datos al realizar el update");
-            resp.put("weeoe", e.getCause());
+            resp.put("error", e.getCause());
             return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
         }
 
@@ -99,9 +99,19 @@ public class ClienteController {
     }
 
     @DeleteMapping("/clientes/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) {
-        clienteService.deleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+
+        Map<String, Object> resp = new HashMap<>();
+
+        try {
+            clienteService.deleteById(id);
+        }catch (DataAccessException e) {
+            resp.put("mensaje", "Error en la base de datos al realizar el delete");
+            resp.put("error", e.getCause());
+            return new ResponseEntity<>(resp,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        resp.put("mensaje", "Cliente eliminado con exito");
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
 }
