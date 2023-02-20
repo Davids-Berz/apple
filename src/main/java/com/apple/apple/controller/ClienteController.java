@@ -42,16 +42,29 @@ public class ClienteController {
         }
         if (cliente == null) {
             resp.put("mensaje", "El cliente id: " + id.toString() + " no existe");
-            return new ResponseEntity<Map<String, Object>>(resp, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
     }
 
     @PostMapping("/clientes")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente create(@RequestBody Cliente cliente) {
+    public ResponseEntity<?>  create(@RequestBody Cliente cliente) {
         cliente.setCreateAt(new Date());
-        return clienteService.save(cliente);
+        Cliente newClient = null;
+        Map<String, Object> resp = new HashMap<>();
+        try {
+            newClient = clienteService.save(cliente);
+        }catch (Exception e) {
+            resp.put("mensaje", "Error en la base de datos al realizar el insert");
+            resp.put("weeoe", e.getLocalizedMessage());
+            return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
+        }
+
+        resp.put("mensaje", "El cliente ah sido creado con exito");
+        resp.put("cliente", newClient);
+
+        return new ResponseEntity<>(resp, HttpStatus.CREATED);
     }
 
     @PutMapping("/clientes/{id}")
