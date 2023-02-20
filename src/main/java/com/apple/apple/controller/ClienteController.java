@@ -28,7 +28,7 @@ public class ClienteController {
 
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
-        Cliente cliente = null;
+        Cliente cliente;
 
         Map<String, Object> resp = new HashMap<>();
 
@@ -51,7 +51,7 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?>  create(@RequestBody Cliente cliente) {
         cliente.setCreateAt(new Date());
-        Cliente newClient = null;
+        Cliente newClient;
         Map<String, Object> resp = new HashMap<>();
         try {
             newClient = clienteService.save(cliente);
