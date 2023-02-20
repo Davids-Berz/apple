@@ -3,11 +3,15 @@ package com.apple.apple.controller;
 import com.apple.apple.models.entity.Cliente;
 import com.apple.apple.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -23,8 +27,24 @@ public class ClienteController {
     }
 
     @GetMapping("/clientes/{id}")
-    public Cliente show(@PathVariable Long id) {
-        return clienteService.findById(id);
+    public ResponseEntity<?> show(@PathVariable Long id) {
+        Cliente cliente = null;
+
+        Map<String, Object> resp = new HashMap<>();
+
+        try {
+            cliente = clienteService.findById(id);
+
+        } catch (DataAccessException e) {
+            resp.put("mensaje", "Error en la base de datos");
+            resp.put("weeoe", e.getMessage());
+            return new ResponseEntity<Map<String, Object>>(resp, HttpStatus.NOT_FOUND);
+        }
+        if (cliente == null) {
+            resp.put("mensaje", "El cliente id: " + id.toString() + " no existe");
+            return new ResponseEntity<Map<String, Object>>(resp, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
     }
 
     @PostMapping("/clientes")
